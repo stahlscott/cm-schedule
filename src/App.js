@@ -1,21 +1,32 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
+import SessionsList from './components/sessions_list'
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { fetchSessions } from './actions/index'
 import './App.css';
 
 class App extends Component {
+  componentDidMount() {
+      this.props.fetchSessions();
+  }
+
   render() {
     return (
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+          <h1 className="App-title">Welcome to CodeMash Scheduler</h1>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <SessionsList />
       </div>
     );
   }
 }
 
-export default App;
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ fetchSessions }, dispatch);
+}
+
+export default connect(null, mapDispatchToProps)(App);
