@@ -1,14 +1,23 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { ButtonToolbar, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
+import { setKidzMash, setShowSelected } from '../actions/index';
 
 class OptionsBox extends Component {
+    updateOptions = value => {
+        const showKidz = value.indexOf(1) !== -1;
+        const showOnlySelected = value.indexOf(2) !== -1;
+        this.props.setKidzMash(showKidz);
+        this.props.setShowSelected(showOnlySelected);
+    };
+
     render() {
         return (
-            <div className='optionsBox'>
+            <div className="optionsBox">
                 <ButtonToolbar>
-                    <ToggleButtonGroup type="checkbox" defaultValue={[1]}>
-                        <ToggleButton value={1}>Hide KidzMash</ToggleButton>
-                        <ToggleButton value={2}>Only Show Selected</ToggleButton>
+                    <ToggleButtonGroup type="checkbox" onChange={this.updateOptions}>
+                        <ToggleButton value={1}>Show KidzMash</ToggleButton>
+                        <ToggleButton value={2}>Show Only Selected</ToggleButton>
                     </ToggleButtonGroup>
                 </ButtonToolbar>
             </div>
@@ -16,4 +25,4 @@ class OptionsBox extends Component {
     }
 }
 
-export default OptionsBox;
+export default connect(null, {setKidzMash, setShowSelected})(OptionsBox);

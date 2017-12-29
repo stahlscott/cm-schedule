@@ -27,24 +27,30 @@ export function fetchSelected() {
     }
 }
 
-export function addSession(id, callback) {
-
+export function addSession(id) {
+    return {
+        type: ADD_SESSION,
+        payload: { id: id }
+    }
 }
 
-export function removeSession(id, callback) {
-    
+export function removeSession(id) {
+    return {
+        type: REMOVE_SESSION,
+        payload: { id: id }
+    }
 }
 
 export function setKidzMash(value) {
     return {
         type: SET_KIDZ_MASH,
-        payload: value
+        payload: { value }
     }
 }
 
 export function setShowSelected(value) {
     return {
         type: SET_SHOW_SELECTED,
-        payload: value
+        payload: { value }
     }
 }

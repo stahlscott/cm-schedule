@@ -6,12 +6,21 @@ import { addSession, removeSession } from '../actions/index';
 
 
 class Session extends Component {
-    handleClick(id) {
-        this.props.addSession(id);
+    isSelected() {
+        return this.props.selected.indexOf(this.props.session.Id) !== -1;
     }
 
     headerStyle(id) {
-        return (this.props.selected.indexOf(id) === -1) ? 'default' : 'success';
+        return (!this.isSelected()) ? 'default' : 'success';
+    }
+
+    renderButton(id) {
+        if (!this.isSelected(id)) {
+            return (<Button bsStyle='primary' onClick={() => this.props.addSession(id)}>Select</Button>);
+        } else {
+            return (<Button bsStyle='danger' onClick={() => this.props.removeSession(id)}>Remove</Button>);
+        }
+        
     }
 
     render() {
@@ -19,12 +28,13 @@ class Session extends Component {
         const id = session.Id;
         const title = session.Title;
         const abstract = session.Abstract;
-        const startTime = Moment(session.SessionStartTime).format('dddd h:mm:ss a');
-        const headerStyleClass = this.headerStyle(id)
+        const startTime = Moment(session.SessionStartTime).format('dddd h:mm a');
 
         return (
-            <Panel collapsible header={startTime + ' -- ' + title} bsStyle={headerStyleClass} >
-                <div><Button bsStyle='primary' onClick={() => this.handleClick(id)}>Select</Button></div>
+            <Panel collapsible eventKey={id} header={startTime + ' -- ' + title} bsStyle={this.headerStyle(id)} >
+                <div>
+                    {this.renderButton(id)}
+                </div>
                 <div>{abstract}</div>
             </Panel>
         );
