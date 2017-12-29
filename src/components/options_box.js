@@ -19,7 +19,7 @@ class OptionsBox extends Component {
                 <ButtonToolbar>
                     <ToggleButtonGroup type="checkbox" onChange={this.updateOptions}>
                         <ToggleButton value={1}>Show KidzMash</ToggleButton>
-                        <ToggleButton value={2}>Show Only Selected</ToggleButton>
+                        <ToggleButton value={2}>Selected Only</ToggleButton>
                         <ToggleButton value={3}>Show Past Sessions</ToggleButton>
                     </ToggleButtonGroup>
                 </ButtonToolbar>

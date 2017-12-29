@@ -47,7 +47,7 @@ class Session extends Component {
                 <p>{this.renderButton(id)}</p>
                 <p>{abstract}</p>
                 <p>{speakerNames}</p>
-                <p>Tags: {tags}</p>
+                <p>Tags: {tags.join(', ')}</p>
             </Panel>
         );
     }

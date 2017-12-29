@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Moment from 'moment';
-import { Accordion } from 'react-bootstrap';
+import { Accordion, Panel } from 'react-bootstrap';
 import Session from './session';
 import OptionsBox from './options_box';
 import { fetchSessions, fetchSelected, getInitialSelected } from '../actions/index';
@@ -25,9 +25,13 @@ class SessionsList extends Component {
     }
 
     renderFilteredSessions() {
-        return this.filteredSessions().map(session => (
-            <Session key={session.Id} eventKey={session.Id} session={session} />
-        ));
+        if (this.props.sessions.length === 0) {
+            return <Panel header="Loading..." />;
+        } else {
+            return this.filteredSessions().map(session => (
+                <Session key={session.Id} eventKey={session.Id} session={session} />
+            ));
+        }
     }
 
     render() {
