@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { db, appTokenKey } from '../config/fire';
 
 const SESSIONS_DATA = `https://speakers.codemash.org/api/sessionsdata`;
 
@@ -19,13 +20,25 @@ export function fetchSessions() {
     };
 }
 
-export function fetchSelected() {
-    const request = [7740];
-
+export function fetchSelected(ids) {
     return {
         type: FETCH_SELECTED,
-        payload: request
+        payload: ids
     };
+}
+
+export function listenForChanges() {
+    const uid = localStorage.getItem(appTokenKey);
+    return dispatch =>
+        db.ref(uid).on(
+            `value`,
+            function(snapshot) {
+                dispatch(fetchSelected(snapshot.val()));
+            },
+            function(errorObject) {
+                console.log('The read failed: ' + errorObject.code);
+            }
+        );
 }
 
 export function addSession(id) {

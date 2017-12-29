@@ -4,12 +4,12 @@ import Moment from 'moment';
 import { Accordion } from 'react-bootstrap';
 import Session from './session';
 import OptionsBox from './options_box';
-import { fetchSessions, fetchSelected } from '../actions/index';
+import { fetchSessions, fetchSelected, listenForChanges } from '../actions/index';
 
 class SessionsList extends Component {
     componentDidMount() {
         this.props.fetchSessions();
-        this.props.fetchSelected();
+        this.props.listenForChanges();
     }
 
     filteredSessions() {
@@ -42,4 +42,4 @@ function mapStateToProps({ sessions, selected, options }) {
     return { sessions, selected, options };
 }
 
-export default connect(mapStateToProps, { fetchSessions, fetchSelected })(SessionsList);
+export default connect(mapStateToProps, { fetchSessions, fetchSelected, listenForChanges })(SessionsList);
