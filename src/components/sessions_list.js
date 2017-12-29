@@ -21,7 +21,7 @@ class SessionsList extends Component {
         return this.props.sessions
             .filter(({ Title }) => showKidzMash || Title.indexOf('KidzMash') === -1)
             .filter(({ Id }) => !showOnlySelected || this.props.selected.indexOf(Id) !== -1)
-            .filter(({ SessionStartTime }) => showPast || Moment(SessionStartTime).isAfter(now));
+            .filter(({ SessionEndTime }) => showPast || Moment(SessionEndTime).isAfter(now));
     }
 
     renderFilteredSessions() {

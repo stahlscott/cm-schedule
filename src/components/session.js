@@ -31,15 +31,18 @@ class Session extends Component {
 
     render() {
         const { session } = this.props;
-        const id = session.Id;
-        const title = session.Title;
-        const abstract = session.Abstract;
+        const { Id: id, Title: title, Rooms: room, Abstract: abstract, Speakers: speakers, Tags: tags } = session;
         const startTime = Moment(session.SessionStartTime).format('dddd h:mm a');
+        const header = startTime + ' -- ' + title + ' -- ' + room;
+        const speakerNames = speakers[0].FirstName + ' ' + speakers[0].LastName
+        // compile tags, speakers, rooms
 
         return (
-            <Panel collapsible eventKey={id} header={startTime + ' -- ' + title} bsStyle={this.headerStyle(id)}>
-                <div>{this.renderButton(id)}</div>
-                <div>{abstract}</div>
+            <Panel collapsible eventKey={id} header={header} bsStyle={this.headerStyle(id)}>
+                <p>{this.renderButton(id)}</p>
+                <p>{abstract}</p>
+                <p>{speakerNames}</p>
+                <p>Tags: {tags}</p>
             </Panel>
         );
     }
