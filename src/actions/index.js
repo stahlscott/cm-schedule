@@ -27,10 +27,10 @@ export function fetchSelected(ids) {
     };
 }
 
-export function listenForChanges() {
+export function getInitialSelected() {
     const uid = localStorage.getItem(appTokenKey);
     return dispatch =>
-        db.ref(uid).on(
+        db.ref(uid).once(
             `value`,
             function(snapshot) {
                 dispatch(fetchSelected(snapshot.val()));

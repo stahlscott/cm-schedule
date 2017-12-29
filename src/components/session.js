@@ -30,15 +30,20 @@ class Session extends Component {
     }
 
     render() {
-        const { session } = this.props;
-        const { Id: id, Title: title, Rooms: room, Abstract: abstract, Speakers: speakers, Tags: tags } = session;
+        // ...props needed to make accordion work right
+        const { session, addSession, removeSession, ...props } = this.props;
+        const { Id: id, Title: title, Rooms: rooms, Abstract: abstract, Speakers: speakers, Tags: tags } = session;
         const startTime = Moment(session.SessionStartTime).format('dddd h:mm a');
-        const header = startTime + ' -- ' + title + ' -- ' + room;
-        const speakerNames = speakers[0].FirstName + ' ' + speakers[0].LastName
-        // compile tags, speakers, rooms
+        const header = startTime + ' -- ' + title + ' (' + rooms.join(', ') + ')';
+        const speakerNames = speakers
+            .map(name => {
+                return name.FirstName + ' ' + name.LastName;
+            })
+            .join(', ');
+        const headerStyle = this.headerStyle(id);
 
         return (
-            <Panel collapsible eventKey={id} header={header} bsStyle={this.headerStyle(id)}>
+            <Panel {...props} collapsible header={header} bsStyle={headerStyle}>
                 <p>{this.renderButton(id)}</p>
                 <p>{abstract}</p>
                 <p>{speakerNames}</p>

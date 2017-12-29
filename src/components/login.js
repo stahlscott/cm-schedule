@@ -56,7 +56,10 @@ const iconStyles = {
 };
 
 const LoginPage = ({ handleGoogleLogin }) => (
-    <div className='App'>
+    <div className="App">
+        <header className="App-header">
+            <h1 className="App-title">CodeMash Scheduler</h1>
+        </header>
         <h1>Login</h1>
         <div>
             <RaisedButton

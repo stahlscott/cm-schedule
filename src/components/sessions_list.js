@@ -4,19 +4,19 @@ import Moment from 'moment';
 import { Accordion } from 'react-bootstrap';
 import Session from './session';
 import OptionsBox from './options_box';
-import { fetchSessions, fetchSelected, listenForChanges } from '../actions/index';
+import { fetchSessions, fetchSelected, getInitialSelected } from '../actions/index';
 
 class SessionsList extends Component {
     componentDidMount() {
         this.props.fetchSessions();
-        this.props.listenForChanges();
+        this.props.getInitialSelected();
     }
 
     filteredSessions() {
         const showKidzMash = this.props.options.get('showKidzMash');
         const showOnlySelected = this.props.options.get('showOnlySelected');
         const showPast = this.props.options.get('showPast');
-        const now = Moment.now()
+        const now = Moment.now();
         // const now = Moment("2018-01-10T01:00:00") // for testing only
         return this.props.sessions
             .filter(({ Title }) => showKidzMash || Title.indexOf('KidzMash') === -1)
@@ -25,7 +25,9 @@ class SessionsList extends Component {
     }
 
     renderFilteredSessions() {
-        return this.filteredSessions().map(session => <Session key={session.Id} session={session} />);
+        return this.filteredSessions().map(session => (
+            <Session key={session.Id} eventKey={session.Id} session={session} />
+        ));
     }
 
     render() {
@@ -42,4 +44,4 @@ function mapStateToProps({ sessions, selected, options }) {
     return { sessions, selected, options };
 }
 
-export default connect(mapStateToProps, { fetchSessions, fetchSelected, listenForChanges })(SessionsList);
+export default connect(mapStateToProps, { fetchSessions, fetchSelected, getInitialSelected })(SessionsList);
