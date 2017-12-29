@@ -29,7 +29,7 @@ export default class Login extends React.Component {
 
         auth.onAuthStateChanged(user => {
             if (user) {
-                console.log('User signed in: ', JSON.stringify(user));
+                console.log('User signed in'); //: ', JSON.stringify(user));
 
                 localStorage.removeItem(firebaseAuthKey);
 
@@ -45,7 +45,7 @@ export default class Login extends React.Component {
     }
 
     render() {
-        console.log(firebaseAuthKey + '=' + localStorage.getItem(firebaseAuthKey));
+        // console.log(firebaseAuthKey + '=' + localStorage.getItem(firebaseAuthKey));
         if (localStorage.getItem(firebaseAuthKey) === '1') return <SplashScreen />;
         return <LoginPage handleGoogleLogin={this.handleGoogleLogin} />;
     }
