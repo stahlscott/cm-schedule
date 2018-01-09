@@ -41,6 +41,7 @@ class Session extends Component {
             })
             .join(', ');
         const headerStyle = this.headerStyle(id);
+        const sessionLink = 'http://www.codemash.org/sessions/?id=' + id;
 
         return (
             <Panel {...props} collapsible header={header} bsStyle={headerStyle}>
@@ -48,6 +49,7 @@ class Session extends Component {
                 <p>{abstract}</p>
                 <p>{speakerNames}</p>
                 <p>Tags: {tags.join(', ')}</p>
+                <p><a href={sessionLink} target="_blank">View on CodeMash site</a></p>
             </Panel>
         );
     }
